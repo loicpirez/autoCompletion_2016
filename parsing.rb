@@ -71,6 +71,6 @@ class Parsing
 
   def get_dictionnary(file)
     check_file(file)
-    return read_file(file)
+    read_file(file)
   end
 end

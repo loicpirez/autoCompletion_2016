@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
+require_relative('dico_data.rb')
 require_relative('parsing.rb')
-require_relative('placeData.rb')
 
 def usage
   puts "USAGE\n\t./autoCompletion dictionnary"
@@ -12,17 +12,16 @@ end
 
 def check_arguments
   ARGV.each do |arg|
-    if arg.eql? '-h'
-      usage
-    else
-      p = Parsing.new
-      puts p.get_dictionnary('dictionnary')
-    end
+    next if arg.eql? '-h'
+    d = DicoData.new
+    p = Parsing.new
+    dictionnary = p.get_dictionnary('dictionnary')
+    d.print_recurrent_town(dictionnary)
   end
 end
 
 def main
-  if ARGV.empty?
+  if ARGV.empty? || ARGV.include?('-h')
     usage
   else
     check_arguments
