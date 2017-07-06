@@ -1,0 +1,4 @@
+(^(?!\s*$).+)\s(\d*)\s((?<![\w\d])allée|avenue|boulevard|chemin|impasse|place|quai|rue|square(?![\w\d]))\s((?!\s*$).+)
+(\d*)\s((?<![\w\d])allée|avenue|boulevard|chemin|impasse|place|quai|rue|square(?![\w\d]))\s((?!\s*$).+),\s((?!\s*$).+)
+(^(?!\s*$).+),\s((?<![\w\d])allée|avenue|boulevard|chemin|impasse|place|quai|rue|square(?![\w\d]))\s((?!\s*$).+)
+((?!\s*$).+)\s(\d*)\s((?!\s*$).+)((?<![\w\d])allée|avenue|boulevard|chemin|impasse|place|quai|rue|square(?![\w\d]))

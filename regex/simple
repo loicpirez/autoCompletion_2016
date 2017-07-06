@@ -1,0 +1,1 @@
+^((?!\s*$).+),\s(\d*)\s((?<![\w\d])allée|avenue|boulevard|rue|chemin|quai|impasse(?![\w\d]))\s((?!\s*$).+)

@@ -1,0 +1,32 @@
+#!/usr/bin/ruby
+
+require_relative('parsing.rb')
+require_relative('placeData.rb')
+
+def usage
+  puts "USAGE\n\t./autoCompletion dictionnary"
+  print "DESCRIPTION\n\tdictionnary file, containing one address per line,"
+  puts ' serving as knowledge base'
+  exit 84
+end
+
+def check_arguments
+  ARGV.each do |arg|
+    if arg.eql? '-h'
+      usage
+    else
+      p = Parsing.new
+      puts p.get_dictionnary('dictionnary')
+    end
+  end
+end
+
+def main
+  if ARGV.empty?
+    usage
+  else
+    check_arguments
+  end
+end
+
+main if $PROGRAM_NAME == __FILE__
