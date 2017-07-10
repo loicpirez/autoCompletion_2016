@@ -15,7 +15,7 @@ def check_arguments
     next if arg.eql? '-h'
     d = DicoData.new
     p = Parsing.new
-    dictionnary = p.get_dictionnary('dictionnary')
+    dictionnary = p.get_dictionnary(arg)
     d.print_recurrent_town(dictionnary)
   end
 end

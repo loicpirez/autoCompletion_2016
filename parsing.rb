@@ -1,4 +1,3 @@
-
 # Class to parse a file formatted on autoComplete format.
 class Parsing
   def check_file(file)
@@ -44,20 +43,25 @@ class Parsing
       r = Regexp.new subregex.chomp
       autocorrection_regex.push(r)
     end
-    File.readlines(file).each do |line|
-      address = line.chomp
-      if address =~ regex
-        dictionnary.push(get_informations(0, regex, address))
-      else
-        matched = false
-        autocorrection_regex.each_with_index do |subregex, index|
-          next unless address =~ subregex
-          dictionnary.push(get_informations(index, subregex, address))
-          matched = true
-          break
+    begin
+      File.readlines(file).each do |line|
+        address = line.chomp
+        if address =~ regex
+          dictionnary.push(get_informations(0, regex, address))
+        else
+          matched = false
+          autocorrection_regex.each_with_index do |subregex, index|
+            next unless address =~ subregex
+            dictionnary.push(get_informations(index, subregex, address))
+            matched = true
+            break
+          end
+          wrong_address.push(address) unless matched
         end
-        wrong_address.push(address) unless matched
       end
+    rescue Errno::ENOENT => e
+      STDERR.puts "[ERROR] Can't read the file content of #{file}. (not exist? insuffisants rights?)"
+      exit 84
     end
     unless wrong_address.length.zero?
       wrong_address.each do |wrong|
