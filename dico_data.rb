@@ -1,3 +1,4 @@
+require 'io/console'
 
 # Class to get data from extracted informations.
 class DicoData
@@ -6,6 +7,12 @@ class DicoData
     frequency = Hash.new(0)
     words.each {|word| frequency[word.downcase] += 1}
     frequency
+  end
+
+  def get_input
+    STDIN.each_with_index do |line, idx|
+      puts line
+    end
   end
 
   def print_recurrent_town(dictionnary)
@@ -29,9 +36,9 @@ class DicoData
     hash = hash.to_a.reverse.to_h
 
     hash.each_with_index do |h,i|
-      print "{#{hash.keys[i]}}"
-      i + 1 == 5 ? (print "\n") : (print " ")
-      break if i >= 4
+      limit = hash.length < 5 ? hash.length : 5
+      i + 1 == limit ? (print "{#{hash.keys[i]}}\n") : (print "{#{hash.keys[i]}} ")
+      break if i >= limit - 1
     end
   end
 end

@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 
+require_relative('complete.rb')
 require_relative('dico_data.rb')
 require_relative('parsing.rb')
 
@@ -17,6 +18,7 @@ def check_arguments
     p = Parsing.new
     dictionnary = p.get_dictionnary(arg)
     d.print_recurrent_town(dictionnary)
+    d.get_input()
   end
 end
 
