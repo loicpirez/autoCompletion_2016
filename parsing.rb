@@ -44,6 +44,7 @@ class Parsing
       autocorrection_regex.push(r)
     end
     begin
+
       File.readlines(file).each do |line|
         address = line.chomp
         if address =~ regex
@@ -59,7 +60,8 @@ class Parsing
           wrong_address.push(address) unless matched
         end
       end
-    rescue Errno::ENOENT => e
+
+    rescue Errno::ENOENT
       STDERR.puts "[ERROR] Can't read the file content of #{file}. (not exist? insuffisants rights?)"
       exit 84
     end
