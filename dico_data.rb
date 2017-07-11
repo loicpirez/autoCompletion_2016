@@ -88,6 +88,14 @@ class DicoData
     exit 0
   end
 
+  def street_get_array(town_elem_array)
+    street = []
+    town_elem_array.each do |t|
+      street.push(t['name'])
+    end
+    street
+  end
+
   def check_street_when_one_town(dictionnary)
       town = ''
       @matched_town.each do |e|
@@ -100,18 +108,37 @@ class DicoData
       if town_elem_array.length.equal? 1
         print_match(town_elem_array)
       else
-        #check name
-        puts town_elem_array
+        street_get_array(town_elem_array).uniq.each_with_index do |s, i|
+          print "{#{town.upcase}, #{s[0][0].downcase}}"
+          if (i + 1).equal? street_get_array(town_elem_array).uniq.length
+            print "\n"
+          else
+            print ' '
+          end
+        end
       end
   end
 
+  def print_multiple_town()
+    @matched_town.each do |m|
+      print m
+    end
+  end
+
   def suggest(dictionnary)
-    "suggest"
     if @matched_town.length.equal? 0 #Au début
       match_town(dictionnary)
+      print_multiple_town if @matched_town.length > 1
     else #Quand la ville est trouvée
-      puts "else"
       if @matched_town.length > 1 #Il y a plus d'une ville
+        @matched_town.each do |m|
+          m.each do |sub|
+            if sub.rstrip == @input.rstrip
+              puts sub.rstrip
+              puts @input.rstrip
+            end
+          end
+        end
       end
     end
     check_street_when_one_town(dictionnary) if @matched_town.length.equal? 1
