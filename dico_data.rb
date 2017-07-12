@@ -107,13 +107,13 @@ class DicoData
     if town_elem_array.length.equal? 1
       print_match(town_elem_array)
     else
+      street_array = []
       street_get_array(town_elem_array).uniq.each_with_index do |s, i|
-        print "{#{town.upcase}, #{s[0][0].downcase}}"
-        if (i + 1).equal? street_get_array(town_elem_array).uniq.length
-          print "\n"
-        else
-          print ' '
-        end
+        street_array.push(s[0][0])
+      end
+      street_array.uniq.each_with_index do |s, i|
+        print "{#{town.upcase}, #{s.downcase}}"
+        ((i + 1).equal? street_array.uniq.length) ? (print "\n") : (print ' ')
       end
     end
   end
@@ -126,6 +126,7 @@ class DicoData
         town = town + sub + ' '
       end
       town = town.rstrip
+#      puts " (#{town.rstrip}) <=> (#{@input.rstrip})"
       print "{#{town}} "
       town = ''
     end
@@ -138,13 +139,17 @@ class DicoData
       print_multiple_town if @matched_town.length > 1
     else
       if @matched_town.length > 1
+        matched = false
         @matched_town.each do |m|
           m.each do |sub|
             if sub.rstrip == @input.rstrip
-              puts sub.rstrip
+              tmp_town = [sub.rstrip]
+              @matched_town = [tmp_town]
+              matched = true
             end
           end
         end
+        print_multiple_town unless matched
       end
     end
     check_street_when_one_town(dictionnary) if @matched_town.length.equal? 1
