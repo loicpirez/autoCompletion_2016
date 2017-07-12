@@ -119,9 +119,17 @@ class DicoData
   end
 
   def print_multiple_town()
+    town = ''
+
     @matched_town.each do |m|
-      print m
+      m.each do |sub|
+        town = town + sub + ' '
+      end
+      town = town.rstrip
+      print "{#{town}} "
+      town = ''
     end
+    puts ("\n")
   end
 
   def suggest(dictionnary)
@@ -134,7 +142,6 @@ class DicoData
           m.each do |sub|
             if sub.rstrip == @input.rstrip
               puts sub.rstrip
-              puts @input.rstrip
             end
           end
         end
