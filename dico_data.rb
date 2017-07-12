@@ -45,7 +45,6 @@ class DicoData
   def print_recurrent_town(dictionnary)
     town_array = get_town_nb_array(dictionnary)
     hash = {'' => ''}
-    puts count_words(town_array)
     count_words(town_array).sort.reverse.to_h.each do |count|
       hash[count[0][0]].nil? ? hash[count[0][0]] = count[1] : hash[count[0][0]] = hash[count[0][0]] + count[1]
     end
@@ -97,26 +96,26 @@ class DicoData
   end
 
   def check_street_when_one_town(dictionnary)
-      town = ''
-      @matched_town.each do |e|
-        e.each do |sub|
-          town = "#{town}#{sub} "
+    town = ''
+    @matched_town.each do |e|
+      e.each do |sub|
+        town = "#{town}#{sub} "
+      end
+    end
+    town = town.rstrip
+    town_elem_array = get_town_elem_array(town, dictionnary)
+    if town_elem_array.length.equal? 1
+      print_match(town_elem_array)
+    else
+      street_get_array(town_elem_array).uniq.each_with_index do |s, i|
+        print "{#{town.upcase}, #{s[0][0].downcase}}"
+        if (i + 1).equal? street_get_array(town_elem_array).uniq.length
+          print "\n"
+        else
+          print ' '
         end
       end
-      town = town.rstrip
-      town_elem_array = get_town_elem_array(town, dictionnary)
-      if town_elem_array.length.equal? 1
-        print_match(town_elem_array)
-      else
-        street_get_array(town_elem_array).uniq.each_with_index do |s, i|
-          print "{#{town.upcase}, #{s[0][0].downcase}}"
-          if (i + 1).equal? street_get_array(town_elem_array).uniq.length
-            print "\n"
-          else
-            print ' '
-          end
-        end
-      end
+    end
   end
 
   def print_multiple_town()
@@ -126,11 +125,11 @@ class DicoData
   end
 
   def suggest(dictionnary)
-    if @matched_town.length.equal? 0 #Au début
+    if @matched_town.length.equal? 0
       match_town(dictionnary)
       print_multiple_town if @matched_town.length > 1
-    else #Quand la ville est trouvée
-      if @matched_town.length > 1 #Il y a plus d'une ville
+    else
+      if @matched_town.length > 1
         @matched_town.each do |m|
           m.each do |sub|
             if sub.rstrip == @input.rstrip
